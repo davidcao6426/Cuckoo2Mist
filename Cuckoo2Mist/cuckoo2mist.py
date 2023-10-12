@@ -76,7 +76,7 @@ def generate_Mist_Reports(files, e2m, t2m):
 				time.sleep(5)
 				for t in thlist:
 					t.join(2.0)
-					if not t.isAlive():
+					if not t.is_alive():
 						thlist.remove(t)
 			# Open a new thread that will convert the json to mist
 			t = th_seq2mist(input_file=seqReportRow["seq_path"], elements2mist=e2m, types2mist=t2m, analysis_id=seqReportRow["analysis_id"])
@@ -106,10 +106,10 @@ def main():
 		
 		# Change the logging level depending on the -v option
 		if args.verbose:
-			log.basicConfig(format="%(levelname)s: %(message)s", level=log.DEBUG)
+			log.basicConfig(filename="cuckoo.log", filemode='w',format="%(levelname)s: %(message)s", level=log.DEBUG)
 			log.info("Verbose output.")
 		else:
-			log.basicConfig(format="%(levelname)s: %(message)s",level=log.ERROR)
+			log.basicConfig(filename="cuckoo.log", filemode='w',format="%(levelname)s: %(message)s",level=log.WARNING)
 
 		# Conf and input dir depending on the -o or -i options
 		f_configdir = args.config

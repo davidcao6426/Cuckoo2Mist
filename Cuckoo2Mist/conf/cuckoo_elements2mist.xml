@@ -130,59 +130,437 @@
 <!-- ================================ process section ================================= -->
 
 	<process mist="05">
-		
-		<NtWriteVirtualMemory mist="01">
+
+		<access mist="01">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+		</access>
+
+		<execve mist="02">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+		</execve>
+
+		<read mist="03">
+			<p0 type="type_integer"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_integer"/>
+		</read>
+
+		<socket mist="04">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+		</socket>
+
+		<ioctl mist="05">
+			<p0 type="type_integer"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_hex"/>
+		</ioctl>
+
+		<connect mist="06">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_integer"/>
+		</connect>
+
+		<getsockname mist="07">
+			<p0 type="type_integer"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_hex"/>
+		</getsockname>
+
+		<close mist="08">
+			<p0 type="type_integer"/>
+		</close>
+
+		<brk mist="09">
+			<p0 type="type_hex"/>
+		</brk>
+
+		<time mist="0a">
+			<p0 type="type_hex"/>
+		</time>
+
+		<getpid mist="0b">
 			<dummyEmpty type="type_integer"/>
-		</NtWriteVirtualMemory>
- 		
-		<TerminateProcess mist="02">
-			<dummyEmpty type="type_integer"/>
-		</TerminateProcess>
- 		
-		<NtReadVirtualMemory mist="03">
-			<dummyEmpty type="type_integer"/>
-		</NtReadVirtualMemory>
- 		
-		<VirtualAllocEx mist="04">
-			<dummyEmpty type="type_integer"/>
-		</VirtualAllocEx>
- 		
-		<NtCreateProcessEx mist="05">
-			<dummyEmpty type="type_integer"/>
-		</NtCreateProcessEx>
- 		
-		<OpenProcess mist="06">
-			<dummyEmpty type="type_integer"/>
-		</OpenProcess>
- 		
-		<CreateProcessInternalW mist="07">
-			<creation_flags type="type_integer"/>
-			<process_handle type="type_hex"/>
-			<current_directory type="type_string"/>
-			<thread_handle type="type_hex"/>
-			<command_line type="type_string"/>
-			<process_identifier type="type_integer"/>
-			<filepath type="type_string"/>
-			<inherit_handle type="type_integer"/>
-			<thread_identifier type="type_integer"/>
-			<filepath_r type="type_string"/>
-			<track type="type_integer"/>
-			<inherit_handle type="type_integer"/>
-			<inherit_handles type="type_integer"/>
-		</CreateProcessInternalW>
- 		
-		<ExitProcess mist="08">
-			<dummyEmpty type="type_integer"/>
-		</ExitProcess>
- 		
-		<VirtualFreeEx mist="09">
-			<dummyEmpty type="type_integer"/>
-		</VirtualFreeEx>
- 		
-		<VirtualProtectEx mist="0a">
-			<dummyEmpty type="type_integer"/>
-		</VirtualProtectEx>
+		</getpid>
 	
+		<getppid mist="0c">
+			<dummyEmpty type="type_integer"/>
+		</getppid>
+
+		<times mist="0d">
+			<p0 type="type_string"/>
+		</times>
+
+		<rt_sigaction mist="0e">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_hex"/>
+			<p3 type="type_integer"/>
+		</rt_sigaction>
+
+		<vfork mist="0f">
+			<dummyEmpty type="type_integer"/>
+		</vfork>
+
+		<wait4 mist="10">
+			<p0 type="type_integer"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_hex"/>
+			<p3 type="type_hex"/>
+		</wait4>
+
+		<prctl mist="11">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+		</prctl>
+
+		<write mist="12">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+			<p3 type="type_integer"/>
+		</write>
+
+		<fork mist="13">
+			<dummyEmpty type="type_integer"/>
+		</fork>
+
+		<exit mist="14">
+			<p0 type="type_integer"/>
+		</exit>
+
+		<openat mist="15">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+			<p3 type="type_string"/>
+		</openat>
+
+		<fstat mist="16">
+			<p0 type="type_integer"/>
+			<p1 type="type_hex"/>
+		</fstat>
+
+		<mmap2 mist="17">
+			<p0 type="type_hex"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_string"/>
+			<p3 type="type_string"/>
+			<p4 type="type_integer"/>
+			<p5 type="type_integer"/>
+		</mmap2>
+	
+		<mprotect mist="18">
+			<p0 type="type_hex"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_string"/>
+		</mprotect>
+
+		<arch_prctl mist="19">
+			<p0 type="type_string"/>
+			<p1 type="type_integer"/>
+		</arch_prctl>
+
+		<munmap mist="1a">
+			<p0 type="type_hex"/>
+			<p1 type="type_integer"/>
+		</munmap>
+
+		<lstat mist="1b">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+		</lstat>
+
+		<fstatat mist="1c">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_hex"/>
+			<p3 type="type_string"/>
+		</fstatat>
+
+		<unlinkat mist="1d">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_hex"/>
+		</unlinkat>
+
+		<lseek mist="1e">
+			<p0 type="type_integer"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_string"/>
+		</lseek>
+
+		<exit_group mist="1f">
+			<p0 type="type_integer"/>
+		</exit_group>
+
+		<set_tid_address mist="20">
+			<p0 type="type_hex"/>
+		</set_tid_address>
+
+		<set_robust_list mist="21">
+			<p0 type="type_hex"/>
+			<p1 type="type_integer"/>
+		</set_robust_list>
+
+		<rt_sigprocmask mist="22">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_hex"/>
+			<p3 type="type_integer"/>
+		</rt_sigprocmask>
+
+		<prlimit64 mist="23">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+			<p3 type="type_hex"/>
+		</prlimit64>
+	
+		<statfs mist="24">
+			<p0 type="type_hex"/>
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+		</statfs>
+
+		<mkdir mist="25">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+		</mkdir>
+
+		<umask mist="26">
+			<p0 type="type_string"/>
+		</umask>
+
+		<stat mist="27">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+		</stat>
+
+		<uname mist="28">
+			<p0 type="type_hex"/>
+		</uname>
+
+		<readlink mist="29">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_integer"/>
+		</readlink>
+
+		<set_thread_area mist="2a">
+			<p0 type="type_string"/>
+		</set_thread_area>
+
+		<writev mist="2b">
+			<p0 type="type_integer"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_integer"/>
+		</writev>
+
+		<clone mist="2c">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_hex"/>
+			<p3 type="type_hex"/>
+		</clone>
+
+		<sched_getaffinity mist="2d">
+			<p0 type="type_integer"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_hex"/>
+		</sched_getaffinity>
+
+		<faccessat mist="2e">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+		</faccessat>
+
+		<open mist="2f">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+		</open>
+
+		<fcntl mist="30">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_hex"/>
+		</fcntl>
+
+		<getdents mist="31">
+			<p0 type="type_integer"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_integer"/>
+		</getdents>
+
+		<sched_setaffinity mist="32">
+			<p0 type="type_integer"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_hex"/>
+		</sched_setaffinity>
+
+		<getcwd mist="33">
+			<p0 type="type_hex"/>
+			<p1 type="type_integer"/>
+		</getcwd>
+	
+		<utime mist="34">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+		</utime>
+
+		<getuid mist="35">
+			<dummyEmpty type="type_integer"/>
+		</getuid>
+
+		<getgid mist="36">
+			<dummyEmpty type="type_integer"/>
+		</getgid>
+
+		<geteuid mist="37">
+			<dummyEmpty type="type_integer"/>
+		</geteuid>
+
+		<getegid mist="38">
+			<dummyEmpty type="type_integer"/>
+		</getegid>
+
+		<futex mist="39">
+			<p0 type="type_hex"/>
+			<p1 type="type_string"/>
+			<p2 type="type_integer"/>
+		</futex>
+
+		<getrlimit mist="3a">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+		</getrlimit>
+
+		<unlink mist="3b">
+			<p0 type="type_string"/>
+		</unlink>
+
+		<chdir mist="3c">
+			<p0 type="type_string"/>
+		</chdir>
+
+		<setsockopt mist="3d">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+			<p3 type="type_hex"/>
+			<p4 type="type_integer"/>
+		</setsockopt>
+
+		<bind mist="3e">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_integer"/>
+		</bind>
+
+		<listen mist="3f">
+			<p0 type="type_integer"/>
+			<p1 type="type_integer"/>
+		</listen>
+
+		<getrandom mist="40">
+			<p0 type="type_string"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_hex"/>
+		</getrandom>
+
+		<!-- <set_tid_address mist="20">
+			<p0 type="type_hex"/>
+		</set_tid_address>
+
+		<set_robust_list mist="21">
+			<p0 type="type_hex"/>
+			<p1 type="type_integer"/>
+		</set_robust_list>
+
+		<rt_sigprocmask mist="22">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+			<p2 type="type_hex"/>
+			<p3 type="type_integer"/>
+		</rt_sigprocmask>
+
+		<prlimit64 mist="23">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+			<p3 type="type_hex"/>
+		</prlimit64>
+	
+		<statfs mist="24">
+			<p0 type="type_hex"/>
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+		</statfs>
+
+		<mkdir mist="25">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+		</mkdir>
+
+		<umask mist="26">
+			<p0 type="type_string"/>
+		</umask>
+
+		<stat mist="27">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+		</stat>
+
+		<uname mist="28">
+			<p0 type="type_hex"/>
+		</uname>
+
+		<readlink mist="29">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_integer"/>
+		</readlink>
+
+		<set_thread_area mist="2a">
+			<p0 type="type_string"/>
+		</set_thread_area>
+
+		<writev mist="2b">
+			<p0 type="type_integer"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_integer"/>
+		</writev>
+
+		<clone mist="2c">
+			<p0 type="type_string"/>
+			<p1 type="type_hex"/>
+			<p2 type="type_hex"/>
+			<p3 type="type_hex"/>
+		</clone>
+
+		<sched_getaffinity mist="2d">
+			<p0 type="type_integer"/>
+			<p1 type="type_integer"/>
+			<p2 type="type_hex"/>
+		</sched_getaffinity>
+
+		<faccessat mist="2e">
+			<p0 type="type_integer"/>
+			<p1 type="type_string"/>
+			<p2 type="type_string"/>
+		</faccessat>
+
+		<open mist="2f">
+			<p0 type="type_string"/>
+			<p1 type="type_string"/>
+		</open> -->
 	</process>
 	
 <!-- ================================ system section ================================= -->

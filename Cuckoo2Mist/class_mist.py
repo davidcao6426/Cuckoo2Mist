@@ -171,12 +171,12 @@ class mistit(object):
 	
 	
 	# Converts a thread section in the JSON to mist	
-	def convert_thread(self, pid, tid, api_calls):
+	def convert_thread(self, pid, tid, api_calls, category):
 		self.addToReport( '# process ' + str(pid) + ' thread ' + str(tid) + ' #\n' )
 		for api_call in api_calls:
 			
 			arguments 	= api_call['arguments']
-			category 	= api_call['category']
+			# category 	= api_call['category']
 			api 		= api_call['api']
 			values = ""
 
@@ -201,7 +201,7 @@ class mistit(object):
 			# For every arguments...
 			for key,val in arguments.items():
 				# We try to find the the corresponding type in the XML						
-				for attrib_node in api_node.getchildren():
+				for attrib_node in list(api_node):
 					typeFound=False			
 					if key == attrib_node.tag:
 						typeFound=True
@@ -266,52 +266,58 @@ class mistit(object):
 	# Launch the conversion on all threads in the JSON
 	def convert(self):
 		processes = {}
-		procs = self.behaviour_report['behavior']['processes']
-		for proc in procs:
-			process_id = proc['pid']
-			parent_id = proc['ppid']
-			process_name = proc['process_name']
-			calls = proc['calls']
-			# Create a dictionnary of threads
-			# The key is the n° of the thread
-			# The content is all calls he makes
-			threads = {}
-			for call in calls:
-				thread_id = call['tid']
-				try:
-					threads[thread_id].append(call)	
-				except:
-					threads[thread_id] = []
-					threads[thread_id].append(call)
-			
-			# Create a dictionnary of process
-			# The key is the n° of the process
-			processes[process_id] = {}
-			processes[process_id]["parent_id"] = parent_id 
-			processes[process_id]["process_name"] = process_name 
-			processes[process_id]["threads"] = threads 
-			
-		# For all processes...
-		for p_id in processes:
-			# For each threads of those processes...
-			for t_id in processes[p_id]["threads"]:
-				# Convert the thread
-				self.convert_thread(p_id, t_id, processes[p_id]["threads"][t_id])
+		try:
+			procs = self.behaviour_report['behavior']['processes']
+			for proc in procs:
+				process_id = proc['pid']
+				parent_id = proc['ppid']
+				process_name = proc['process_name']
+				calls = proc['calls']
+				category = proc['type']
+				# Create a dictionnary of threads
+				# The key is the n° of the thread
+				# The content is all calls he makes
+				threads = {}
+				for call in calls:
+					thread_id = call['pid']
+					try:
+						threads[thread_id].append(call)	
+					except:
+						threads[thread_id] = []
+						threads[thread_id].append(call)
+				
+				# Create a dictionnary of process
+				# The key is the n° of the process
+				processes[process_id] = {}
+				processes[process_id]["parent_id"] = parent_id 
+				processes[process_id]["process_name"] = process_name 
+				processes[process_id]["threads"] = threads 
+				
+			# For all processes...
+			for p_id in processes:
+				# For each threads of those processes...
+				for t_id in processes[p_id]["threads"]:
+					# Convert the thread
+					self.convert_thread(p_id, t_id, processes[p_id]["threads"][t_id], category)
 
-		if len(self.missingCategory.keys()) > 0:
-			for key,val in self.missingCategory.items():
-				try:
-					log.warning("Category <%s> does not exists in the XML" % key)
-				except:
-					pass
-		if len(self.missingApi.keys()) > 0:
-			for key,val in self.missingApi.items():
-				try:
-					log.warning("The category <%s> does not contains an API named <%s> in the XML" % (val,key))
-				except:
-					pass
+			if len(self.missingCategory.keys()) > 0:
+				for key,val in self.missingCategory.items():
+					try:
+						log.warning("Category <%s> does not exists in the XML" % key)
+					except:
+						pass
+			if len(self.missingApi.keys()) > 0:
+				for key,val in self.missingApi.items():
+					try:
+						log.warning("The category <%s> does not contains an API named <%s> in the XML" % (val,key))
+					except:
+						pass
 
-		return True
+			return True	
+		except:
+			log.warning("File {} KeyError at behavior.".format(self.infile))
+			return False
+		
 
 
 if __name__ == '__main__':
